@@ -17,7 +17,7 @@ uv pip check --python .venv/bin/python
 .venv/bin/pixel-type --source fixtures/input.json --output run/report-initial.json
 ```
 
-实际7项测试通过，演示摘要：
+实际全量测试通过（含 v1/v2/v3，共 72 项），v1 演示摘要：
 
 ```json
 {
@@ -45,6 +45,17 @@ uv pip check --python .venv/bin/python
 
 `seal` 把审核过的 `old`/`new` 两份 v1 排版输入冻结成自包含写入方案（最小不可拆原子组、保护窗口联结、旧新位图与核对条件）；同 ID 同摘要重取字节完全一致且不再依赖源文件，同 ID 异摘要冲突退出 2。`reconcile` 仅凭冻结方案与一次设备回读，逐组给出 `conflict`/`unconfirmed`/`ready`/`applied`，只有 `ready` 组附下一条原子写入及旧态前置条件；报告原子新建、不覆盖旧文件，坏输入退出 2。
 
-## 当前能力与后续集成
+## 离线素材编译器与取帧
+
+新增两个离线子命令，把一个屏的整套画面装进终端素材空间并离线取帧，规则见 [素材契约](docs/contract-v3.md)：
+
+```sh
+.venv/bin/pixel-type compile-pack --source fixtures/pack-three-scenes.json --output run/pack.json
+.venv/bin/pixel-type unpack-frame --pack run/pack.json --scene C --output run/frame-c.json
+```
+
+`compile-pack` 渲染每场景实际亮点（同点只亮一次、空字形不点灯、出屏即整包失败），在"整帧 / 以任一整帧为基础的异或掩码引用帧"之间做全局最优分配，取载荷字节最小者；等长时先按目录顺序比较记录格式（整帧在前），再比较引用帧基础序号，均取字典序最小。`direct_only` 场景强制整帧、可作他场景基础。载荷按 ASCII 场景 ID 的目录顺序无缝拼接为 Base64 自包含包，报告实占字节数；最小载荷超过预算退出 2 并在 stderr 报出所需与给定字节数，不产出部分包。
+
+`unpack-frame` 仅凭包重建任一场景，原输入可不存在；输出含全暗块的完整 `tiles`。取帧前校验整包结构（版本/尺寸/目录顺序/记录边界/引用合法性/Base64 等），任一坏记录即使未被选中也使整包失败。两个命令都原子新建输出、不覆盖既有文件。确定性与打乱无关：`scenes` 顺序不影响成功包字节。验收三场景（A 暗、B 亮两处、C 再加一处）自由分配实占 100 字节；将 A 设为冷启动必读后为 120 字节。
 
 自定义位图字体，逐码点贪心换行；无复杂文本整形、字体回退或单词折行。 合理新增需求可沿现有身份和结果接入多字体/连字处理、编辑命中测试和标牌导出；当前尚未实现这些扩展，不保证固定数量未来题目。

@@ -4,6 +4,7 @@ import json
 import sys
 
 from .io import load, parse_json as load_from_bytes, publish, publish_bytes
+from .pack import BudgetExceeded, compile_pack, unpack_frame
 from .reconcile import build_report
 from .service import process
 from .store import Store, StoreError, canonical_bytes
@@ -64,11 +65,48 @@ def _run_reconcile(args):
     return 0
 
 
+def _run_compile_pack(args):
+    try:
+        pack = compile_pack(load(args.source))
+        publish_bytes(args.output, canonical_bytes(pack))
+    except BudgetExceeded as e:
+        print(f'error: {e}', file=sys.stderr)
+        return 2
+    except (ValueError, OSError, UnicodeError, RecursionError) as e:
+        return _fail(e)
+    print(json.dumps({'payload_bytes': pack['payload_bytes'],
+                      'scene_count': len(pack['catalog'])},
+                     ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+def _run_unpack_frame(args):
+    try:
+        frame = unpack_frame(load(args.pack), args.scene)
+        publish_bytes(args.output, canonical_bytes(frame))
+    except (ValueError, OSError, UnicodeError, RecursionError) as e:
+        return _fail(e)
+    print(json.dumps({'id': frame['id'], 'tiles': len(frame['tiles'])},
+                     ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
     # Manual dispatch keeps the legacy v1 invocation
     # (pixel-type --source ... --output ...) working unchanged.
+    if argv and argv[0] == 'compile-pack':
+        parser = argparse.ArgumentParser(prog='pixel-type compile-pack')
+        parser.add_argument('--source', required=True)
+        parser.add_argument('--output', required=True)
+        return _run_compile_pack(parser.parse_args(argv[1:]))
+    if argv and argv[0] == 'unpack-frame':
+        parser = argparse.ArgumentParser(prog='pixel-type unpack-frame')
+        parser.add_argument('--pack', required=True)
+        parser.add_argument('--scene', required=True)
+        parser.add_argument('--output', required=True)
+        return _run_unpack_frame(parser.parse_args(argv[1:]))
     if argv and argv[0] == 'seal':
         parser = argparse.ArgumentParser(prog='pixel-type seal')
         parser.add_argument('--store', required=True)
