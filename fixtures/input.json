@@ -1,0 +1,9 @@
+{
+  "glyphs":[
+    {"char":"A","advance":4,"offset":[0,0],"rows":["010","101","111","101","101"]},
+    {"char":"V","advance":4,"offset":[0,0],"rows":["101","101","101","101","010"]},
+    {"char":" ","advance":2,"offset":[0,0],"rows":[]}
+  ],
+  "kerning":[{"left":"A","right":"V","adjust":-1}],
+  "text":"AVA VA","line_width":10,"line_height":6
+}
