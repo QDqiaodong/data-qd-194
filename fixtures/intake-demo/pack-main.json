@@ -1,0 +1,20 @@
+{
+  "catalog": [
+    {
+      "direct_only": true,
+      "format": "full",
+      "id": "aa",
+      "length": 32,
+      "offset": 0
+    }
+  ],
+  "height": 8,
+  "kind": "pixel-type.pack",
+  "payload_base64": "gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  "payload_budget": 1000,
+  "payload_bytes": 32,
+  "schema_version": 1,
+  "tile_cols": 4,
+  "tile_rows": 1,
+  "width": 32
+}

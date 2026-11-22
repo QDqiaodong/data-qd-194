@@ -409,10 +409,20 @@ def _parse_records(document, width, height):
     return width, height, catalog, words
 
 
+def decode_pack(document):
+    """Fully validate a pack and materialise every frame.
+
+    Returns ``(width, height, catalog, frames)`` where ``frames`` holds one
+    list of 64-bit tile words per catalog entry.  Any bad record -- even one
+    no caller is interested in -- rejects the whole pack.
+    """
+    width, height = _check_pack_fields(document)
+    return _parse_records(document, width, height)
+
+
 def unpack_frame(document, scene_id):
     """Validate the whole pack and return one fully materialised frame."""
-    width, height = _check_pack_fields(document)
-    width, height, catalog, frames = _parse_records(document, width, height)
+    width, height, catalog, frames = decode_pack(document)
     if not isinstance(scene_id, str):
         raise ValueError('scene id must be a string')
     for index, entry in enumerate(catalog):

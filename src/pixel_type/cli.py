@@ -1,9 +1,11 @@
 import argparse
 import hashlib
 import json
+import os
 import sys
 
 from .io import load, parse_json as load_from_bytes, publish, publish_bytes
+from .ledger import Ledger, LedgerError
 from .pack import BudgetExceeded, compile_pack, unpack_frame
 from .reconcile import build_report
 from .service import process
@@ -91,11 +93,47 @@ def _run_unpack_frame(args):
     return 0
 
 
+def _run_intake(args):
+    try:
+        ledger = Ledger(args.ledger)
+        source = load(args.source)
+        base_dir = os.path.dirname(os.path.abspath(args.source)) or '.'
+        ledger.commit(source, base_dir, args.revision)
+    except (ValueError, OSError, UnicodeError, RecursionError, LedgerError) as e:
+        return _fail(e)
+    print(json.dumps({'committed_revision': args.revision},
+                     ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+def _run_statement(args):
+    try:
+        ledger = Ledger(args.ledger)
+        raw = ledger.statement(args.panel_id, args.period_id, args.revision)
+    except (ValueError, OSError, UnicodeError, RecursionError, LedgerError) as e:
+        return _fail(e)
+    sys.stdout.buffer.write(raw)
+    return 0
+
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv[1:]
     # Manual dispatch keeps the legacy v1 invocation
     # (pixel-type --source ... --output ...) working unchanged.
+    if argv and argv[0] == 'intake':
+        parser = argparse.ArgumentParser(prog='pixel-type intake')
+        parser.add_argument('--ledger', required=True)
+        parser.add_argument('--source', required=True)
+        parser.add_argument('--revision', required=True, type=int)
+        return _run_intake(parser.parse_args(argv[1:]))
+    if argv and argv[0] == 'statement':
+        parser = argparse.ArgumentParser(prog='pixel-type statement')
+        parser.add_argument('--ledger', required=True)
+        parser.add_argument('--panel-id', required=True)
+        parser.add_argument('--period-id', required=True)
+        parser.add_argument('--revision', required=True, type=int)
+        return _run_statement(parser.parse_args(argv[1:]))
     if argv and argv[0] == 'compile-pack':
         parser = argparse.ArgumentParser(prog='pixel-type compile-pack')
         parser.add_argument('--source', required=True)

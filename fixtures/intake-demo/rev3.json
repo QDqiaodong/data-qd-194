@@ -1,0 +1,14 @@
+{
+  "changes": [
+    {
+      "id": "e4",
+      "type": "drop"
+    }
+  ],
+  "end_ms": 40,
+  "height": 8,
+  "panel_id": "PANEL-1",
+  "period_id": "P2026-11",
+  "start_ms": 0,
+  "width": 32
+}

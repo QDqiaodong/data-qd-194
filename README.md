@@ -45,6 +45,24 @@ uv pip check --python .venv/bin/python
 
 `seal` 把审核过的 `old`/`new` 两份 v1 排版输入冻结成自包含写入方案（最小不可拆原子组、保护窗口联结、旧新位图与核对条件）；同 ID 同摘要重取字节完全一致且不再依赖源文件，同 ID 异摘要冲突退出 2。`reconcile` 仅凭冻结方案与一次设备回读，逐组给出 `conflict`/`unconfirmed`/`ready`/`applied`，只有 `ready` 组附下一条原子写入及旧态前置条件；报告原子新建、不覆盖旧文件，坏输入退出 2。
 
+## 离线播出履约台账
+
+新增两个离线子命令，不接设备、不规划换版、不改素材包格式，规则见 [台账契约](docs/contract-v4.md)：
+
+```sh
+.venv/bin/pixel-type intake --ledger run/ledger --source run/rev1.json --revision 1
+.venv/bin/pixel-type statement --ledger run/ledger --panel-id PANEL-1 \
+  --period-id P2026-11 --revision 1
+```
+
+`intake` 分期冻结首版屏尺寸、素材包全部场景像素与派单，之后每版只接受对证据的 `put`/`drop` 编辑；每版取核销数量最大的合法配对，并按派单 ID 词典序打破并列。`statement` 以确定性 JSON 返回完整配对、与上一版相比的撤销/新增差额（同一单换段成对记账）、缺采/冲突区间、最大连续播出段及可追溯的覆盖证据。历史账在源文件与素材文件移走后仍返回原字节；同一版本只会入账一次，提交点前后中断可确定性复现与重跑。
+
+```sh
+.venv/bin/python -I -m unittest tests.test_ledger tests.test_ledger_demo -v
+```
+
+演示数据见 `fixtures/intake-demo/`（两包三版，可直接照上面命令跑通）。
+
 ## 离线素材编译器与取帧
 
 新增两个离线子命令，把一个屏的整套画面装进终端素材空间并离线取帧，规则见 [素材契约](docs/contract-v3.md)：

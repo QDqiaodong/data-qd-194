@@ -1,0 +1,27 @@
+{
+  "catalog": [
+    {
+      "direct_only": true,
+      "format": "full",
+      "id": "aa",
+      "length": 32,
+      "offset": 0
+    },
+    {
+      "direct_only": false,
+      "format": "reference",
+      "id": "zz",
+      "length": 13,
+      "offset": 32
+    }
+  ],
+  "height": 8,
+  "kind": "pixel-type.pack",
+  "payload_base64": "IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAKAAAAAAAAAA",
+  "payload_budget": 1000,
+  "payload_bytes": 45,
+  "schema_version": 1,
+  "tile_cols": 4,
+  "tile_rows": 1,
+  "width": 32
+}

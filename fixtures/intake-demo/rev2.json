@@ -1,0 +1,20 @@
+{
+  "changes": [
+    {
+      "end_ms": 27,
+      "id": "e4",
+      "observed": {
+        "pack": "two",
+        "scene": "aa"
+      },
+      "start_ms": 23,
+      "type": "put"
+    }
+  ],
+  "end_ms": 40,
+  "height": 8,
+  "panel_id": "PANEL-1",
+  "period_id": "P2026-11",
+  "start_ms": 0,
+  "width": 32
+}
