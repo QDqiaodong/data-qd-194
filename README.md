@@ -111,3 +111,43 @@ uv pip check --python .venv/bin/python
 `unpack-frame` 仅凭包重建任一场景，原输入可不存在；输出含全暗块的完整 `tiles`。取帧前校验整包结构（版本/尺寸/目录顺序/记录边界/引用合法性/Base64 等），任一坏记录即使未被选中也使整包失败。两个命令都原子新建输出、不覆盖既有文件。确定性与打乱无关：`scenes` 顺序不影响成功包字节。验收三场景（A 暗、B 亮两处、C 再加一处）自由分配实占 100 字节；将 A 设为冷启动必读后为 120 字节。
 
 自定义位图字体，逐码点贪心换行；无复杂文本整形、字体回退或单词折行。 合理新增需求可沿现有身份和结果接入多字体/连字处理、编辑命中测试和标牌导出；当前尚未实现这些扩展，不保证固定数量未来题目。
+
+## 离线字形装配（无新增 CLI，Python 数据处理入口）
+
+多供稿字形原料（fragment）与手工合成的装配节点（assembly）经一个纯 Python 入口
+装配为可直接送 v1 的交付，规则见 [字形装配契约](docs/contract-v7.md)。不新增任何
+CLI 子命令、不接 UI 或屏幕，原有 `pixel-type` 调用与全部子命令保持原行为：
+
+```python
+from pixel_type.assembly import assemble, assemble_file, cell_source
+
+delivery = assemble(manifest_dict)                 # 字典 → 交付字典
+assemble_file('manifest.json', 'run/delivery.json')  # 流式读 + 原子新建
+cell_source(delivery, 'A', 1, 0)                   # 按字符/局部坐标查逐格来源
+```
+
+三态语义：`1` 带来源亮点、`0` 带来源清除、`.` 透明不写入；交付 v1 时透明与清除
+都变 `0`，但只有有效格带逐格来源（供稿方、原料节点 ID、原料原始坐标）。未获批
+供稿方的有效格（即使是看起来与透明相同的清除）拒绝交付并给出可定位诊断；被盖住、
+裁掉或未被绑定用到的未获批供稿不拦截。大清单走事件式流式解析，整份 JSON 解析树
+从不同时驻留，绑定级三态画布处理完即释放。
+
+极限压力样例（40000 个全部可达的 32×32 节点、2048 原料、跨分支共用、裁窗/位移/
+清除/透底、64 节点深链）与峰值 RSS 测量由独立进程驱动，不挂 CLI：
+
+```sh
+python -I bench/stress_bench.py generate --output run/stress-manifest.json
+python -I bench/stress_bench.py run --source run/stress-manifest.json \
+    --delivery run/stress-delivery.json
+```
+
+测量在独立 Linux CPython 进程内用 `resource.getrusage(RUSAGE_SELF).ru_maxrss`
+报告峰值 RSS，预算 128 MiB，超限退出码 3；样例结果与来源由自动断言核对，不只看
+进程退出。
+
+```sh
+python -I -c "import sys; sys.path.insert(0,'src'); \
+import unittest; unittest.TextTestRunner(verbosity=1).run( \
+unittest.defaultTestLoader.loadTestsFromNames( \
+['tests.test_assembly','tests.test_stress_sample']))"
+```
