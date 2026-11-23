@@ -17,7 +17,7 @@ uv pip check --python .venv/bin/python
 .venv/bin/pixel-type --source fixtures/input.json --output run/report-initial.json
 ```
 
-实际全量测试通过（含 v1/v2/v3，共 72 项），v1 演示摘要：
+实际全量测试通过（含 v1/v2/v3/v4/v5，共 133 项），v1 演示摘要：
 
 ```json
 {
@@ -62,6 +62,24 @@ uv pip check --python .venv/bin/python
 ```
 
 演示数据见 `fixtures/intake-demo/`（两包三版，可直接照上面命令跑通）。
+
+## 离线抽检卡与回执判读
+
+新增两个离线子命令，不连接仪器、不点播、不下发屏幕写入，规则见 [抽检契约](docs/contract-v5.md)：
+
+```sh
+.venv/bin/pixel-type inspect-plan --source fixtures/inspect-demo/plan.json --output run/card.json
+.venv/bin/pixel-type inspect-result --card run/card.json \
+  --readback fixtures/inspect-demo/readback-cleared.json --output run/report.json
+```
+
+`inspect-plan` 把抽检工单（面板、1–4 个素材包、1–16 个带放行属性的候选画面、可读块、读数额度与整次容错上限）编译成自包含抽检卡：每个候选在每一可读块的预期位图，以及——在存在合规策略时——一套保证在额度内必达 `cleared`/`rejected` 的可执行分支策略（完整与或博弈求解，不因固定块集不够或贪心失败而误判不可保证）；不存在时只标 `not_guaranteed`。`inspect-result` 仅凭卡与回执判读：逐候选统计不符块数，按全部实际证据给出 `cleared`/`rejected`/`undecided`/`inconsistent`，报告绑定面板与卡摘要、列明每个候选的可能/排除依据与判定前提，不再打开源输入与素材包。卡与报告都原子新建，不覆盖既有路径；坏输入退出 2。
+
+```sh
+.venv/bin/python -I -m unittest tests.test_inspect tests.test_inspect_demo -v
+```
+
+演示数据见 `fixtures/inspect-demo/`（72×8 屏、四候选、九块可读、至多读六块容错一次，可直接照上面命令跑通）。
 
 ## 离线素材编译器与取帧
 

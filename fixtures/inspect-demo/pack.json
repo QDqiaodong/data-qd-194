@@ -1,0 +1,41 @@
+{
+  "catalog": [
+    {
+      "direct_only": false,
+      "format": "full",
+      "id": "A",
+      "length": 72,
+      "offset": 0
+    },
+    {
+      "direct_only": false,
+      "format": "reference",
+      "id": "B",
+      "length": 33,
+      "offset": 72
+    },
+    {
+      "direct_only": false,
+      "format": "reference",
+      "id": "C",
+      "length": 63,
+      "offset": 105
+    },
+    {
+      "direct_only": false,
+      "format": "reference",
+      "id": "D",
+      "length": 33,
+      "offset": 168
+    }
+  ],
+  "height": 8,
+  "kind": "pixel-type.pack",
+  "payload_base64": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAACAAAAAAAAAAAEAgAAAAAAAAAACAIAAAAAAAAAAAAYAAACAAAAAAAAAAAEAgAAAAAAAAAACAIAAAAAAAAAABgCAAAAAAAAAAAcAgAAAAAAAAAAIAIAAAAAAAAAAAAMAAwCAAAAAAAAAAAQAgAAAAAAAAAAFAIAAAAAAAAAA",
+  "payload_budget": 256,
+  "payload_bytes": 201,
+  "schema_version": 1,
+  "tile_cols": 9,
+  "tile_rows": 1,
+  "width": 72
+}

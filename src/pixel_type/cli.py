@@ -4,6 +4,8 @@ import json
 import os
 import sys
 
+from .inspection import (build_card, parse_card,
+                         build_report as build_inspect_report)
 from .io import load, parse_json as load_from_bytes, publish, publish_bytes
 from .ledger import Ledger, LedgerError
 from .pack import BudgetExceeded, compile_pack, unpack_frame
@@ -93,6 +95,42 @@ def _run_unpack_frame(args):
     return 0
 
 
+def _run_inspect_plan(args):
+    try:
+        source = load(args.source)
+        base_dir = os.path.dirname(os.path.abspath(args.source)) or '.'
+        card = build_card(source, base_dir)
+        publish_bytes(args.output, canonical_bytes(card))
+    except (ValueError, OSError, UnicodeError, RecursionError) as e:
+        return _fail(e)
+    strategy = card['strategy']
+    print(json.dumps({'guarantee': card['guarantee'],
+                      'candidates': len(card['candidates']),
+                      'probe_tiles': len(card['probe_tiles']),
+                      'strategy_nodes': len(strategy['nodes']) if strategy else 0},
+                     ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+def _run_inspect_result(args):
+    try:
+        with open(args.card, 'rb') as handle:
+            card_raw = handle.read(8000001)
+        if len(card_raw) > 8000000:
+            raise ValueError('input over 8MB')
+        card = parse_card(load_from_bytes(card_raw))
+        digest = hashlib.sha256(card_raw).hexdigest()
+        report = build_inspect_report(card, digest, load(args.readback))
+        publish_bytes(args.output, canonical_bytes(report))
+    except (ValueError, OSError, UnicodeError, RecursionError) as e:
+        return _fail(e)
+    print(json.dumps({'verdict': report['verdict'],
+                      'possible_candidates': report['possible_candidates'],
+                      'reads_used': report['reads_used']},
+                     ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def _run_intake(args):
     try:
         ledger = Ledger(args.ledger)
@@ -121,6 +159,17 @@ def main(argv=None):
         argv = sys.argv[1:]
     # Manual dispatch keeps the legacy v1 invocation
     # (pixel-type --source ... --output ...) working unchanged.
+    if argv and argv[0] == 'inspect-plan':
+        parser = argparse.ArgumentParser(prog='pixel-type inspect-plan')
+        parser.add_argument('--source', required=True)
+        parser.add_argument('--output', required=True)
+        return _run_inspect_plan(parser.parse_args(argv[1:]))
+    if argv and argv[0] == 'inspect-result':
+        parser = argparse.ArgumentParser(prog='pixel-type inspect-result')
+        parser.add_argument('--card', required=True)
+        parser.add_argument('--readback', required=True)
+        parser.add_argument('--output', required=True)
+        return _run_inspect_result(parser.parse_args(argv[1:]))
     if argv and argv[0] == 'intake':
         parser = argparse.ArgumentParser(prog='pixel-type intake')
         parser.add_argument('--ledger', required=True)

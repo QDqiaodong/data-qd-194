@@ -1,0 +1,74 @@
+{
+  "candidates": [
+    {
+      "allowed": true,
+      "id": "R0",
+      "pack": "main",
+      "scene": "A"
+    },
+    {
+      "allowed": false,
+      "id": "R1",
+      "pack": "main",
+      "scene": "D"
+    },
+    {
+      "allowed": false,
+      "id": "S0",
+      "pack": "main",
+      "scene": "B"
+    },
+    {
+      "allowed": true,
+      "id": "S1",
+      "pack": "main",
+      "scene": "C"
+    }
+  ],
+  "height": 8,
+  "max_bad_reads": 1,
+  "max_reads": 6,
+  "packs": {
+    "main": "pack.json"
+  },
+  "panel_id": "PANEL-72",
+  "probe_tiles": [
+    {
+      "tx": 0,
+      "ty": 0
+    },
+    {
+      "tx": 1,
+      "ty": 0
+    },
+    {
+      "tx": 2,
+      "ty": 0
+    },
+    {
+      "tx": 3,
+      "ty": 0
+    },
+    {
+      "tx": 4,
+      "ty": 0
+    },
+    {
+      "tx": 5,
+      "ty": 0
+    },
+    {
+      "tx": 6,
+      "ty": 0
+    },
+    {
+      "tx": 7,
+      "ty": 0
+    },
+    {
+      "tx": 8,
+      "ty": 0
+    }
+  ],
+  "width": 72
+}
