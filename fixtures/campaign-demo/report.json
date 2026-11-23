@@ -1,0 +1,760 @@
+{
+  "displays": [
+    {
+      "height": 32,
+      "id": "GATE-64",
+      "max_lines": 3,
+      "safe_rect": {
+        "height": 24,
+        "width": 60,
+        "x": 2,
+        "y": 4
+      },
+      "width": 64
+    },
+    {
+      "height": 16,
+      "id": "PIER-32",
+      "max_lines": 2,
+      "safe_rect": {
+        "height": 12,
+        "width": 30,
+        "x": 1,
+        "y": 2
+      },
+      "width": 32
+    }
+  ],
+  "kind": "pixel-type.campaign-fit.report",
+  "line_height": 8,
+  "messages": [
+    {
+      "id": "M-EXIT",
+      "protected_spans": [],
+      "text": "EXIT 12"
+    },
+    {
+      "id": "M-GATE",
+      "protected_spans": [
+        {
+          "end": 7,
+          "start": 5
+        }
+      ],
+      "text": "GATE B7"
+    },
+    {
+      "id": "M-LONG",
+      "protected_spans": [],
+      "text": "EXIT GATE EXIT GATE"
+    },
+    {
+      "id": "M-WIDE",
+      "protected_spans": [
+        {
+          "end": 18,
+          "start": 0
+        }
+      ],
+      "text": "EXITEXITEXITEXITEX"
+    }
+  ],
+  "results": [
+    {
+      "breaks": [],
+      "display_id": "GATE-64",
+      "eligible": true,
+      "ink_bbox": {
+        "max_exclusive": [
+          23,
+          9
+        ],
+        "min": [
+          2,
+          4
+        ]
+      },
+      "lines": [
+        {
+          "advance": 22,
+          "character_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "message_id": "M-EXIT",
+      "placements": [
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 0,
+          "ink_origin": [
+            2,
+            4
+          ],
+          "line": 0,
+          "pen_x": 2
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "X",
+          "character_index": 1,
+          "ink_origin": [
+            6,
+            4
+          ],
+          "line": 0,
+          "pen_x": 6
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": "I",
+          "character_index": 2,
+          "ink_origin": [
+            10,
+            4
+          ],
+          "line": 0,
+          "pen_x": 10
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 3,
+          "ink_origin": [
+            12,
+            4
+          ],
+          "line": 0,
+          "pen_x": 12
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": " ",
+          "character_index": 4,
+          "ink_origin": [
+            16,
+            4
+          ],
+          "line": 0,
+          "pen_x": 16
+        },
+        {
+          "advance": 3,
+          "applied_kerning": 0,
+          "char": "1",
+          "character_index": 5,
+          "ink_origin": [
+            18,
+            4
+          ],
+          "line": 0,
+          "pen_x": 18
+        },
+        {
+          "advance": 4,
+          "applied_kerning": -1,
+          "char": "2",
+          "character_index": 6,
+          "ink_origin": [
+            20,
+            4
+          ],
+          "line": 0,
+          "pen_x": 20
+        }
+      ],
+      "unique_ink_pixels": 46
+    },
+    {
+      "breaks": [],
+      "display_id": "PIER-32",
+      "eligible": true,
+      "ink_bbox": {
+        "max_exclusive": [
+          22,
+          7
+        ],
+        "min": [
+          1,
+          2
+        ]
+      },
+      "lines": [
+        {
+          "advance": 22,
+          "character_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "message_id": "M-EXIT",
+      "placements": [
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 0,
+          "ink_origin": [
+            1,
+            2
+          ],
+          "line": 0,
+          "pen_x": 1
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "X",
+          "character_index": 1,
+          "ink_origin": [
+            5,
+            2
+          ],
+          "line": 0,
+          "pen_x": 5
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": "I",
+          "character_index": 2,
+          "ink_origin": [
+            9,
+            2
+          ],
+          "line": 0,
+          "pen_x": 9
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 3,
+          "ink_origin": [
+            11,
+            2
+          ],
+          "line": 0,
+          "pen_x": 11
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": " ",
+          "character_index": 4,
+          "ink_origin": [
+            15,
+            2
+          ],
+          "line": 0,
+          "pen_x": 15
+        },
+        {
+          "advance": 3,
+          "applied_kerning": 0,
+          "char": "1",
+          "character_index": 5,
+          "ink_origin": [
+            17,
+            2
+          ],
+          "line": 0,
+          "pen_x": 17
+        },
+        {
+          "advance": 4,
+          "applied_kerning": -1,
+          "char": "2",
+          "character_index": 6,
+          "ink_origin": [
+            19,
+            2
+          ],
+          "line": 0,
+          "pen_x": 19
+        }
+      ],
+      "unique_ink_pixels": 46
+    },
+    {
+      "breaks": [],
+      "display_id": "GATE-64",
+      "eligible": true,
+      "ink_bbox": {
+        "max_exclusive": [
+          28,
+          18
+        ],
+        "min": [
+          2,
+          4
+        ]
+      },
+      "lines": [
+        {
+          "advance": 26,
+          "character_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        }
+      ],
+      "message_id": "M-GATE",
+      "placements": [
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "G",
+          "character_index": 0,
+          "ink_origin": [
+            2,
+            4
+          ],
+          "line": 0,
+          "pen_x": 2
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "A",
+          "character_index": 1,
+          "ink_origin": [
+            6,
+            4
+          ],
+          "line": 0,
+          "pen_x": 6
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 2,
+          "ink_origin": [
+            10,
+            4
+          ],
+          "line": 0,
+          "pen_x": 10
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 3,
+          "ink_origin": [
+            14,
+            4
+          ],
+          "line": 0,
+          "pen_x": 14
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": " ",
+          "character_index": 4,
+          "ink_origin": [
+            18,
+            4
+          ],
+          "line": 0,
+          "pen_x": 18
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "B",
+          "character_index": 5,
+          "ink_origin": [
+            20,
+            4
+          ],
+          "line": 0,
+          "pen_x": 20
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "7",
+          "character_index": 6,
+          "ink_origin": [
+            24,
+            4
+          ],
+          "line": 0,
+          "pen_x": 24
+        }
+      ],
+      "unique_ink_pixels": 63
+    },
+    {
+      "details": {
+        "breaks": [],
+        "out_of_bounds_ink": [
+          {
+            "character_index": 6,
+            "outside": "safe_rect",
+            "x": 24,
+            "y": 14
+          },
+          {
+            "character_index": 6,
+            "outside": "safe_rect",
+            "x": 24,
+            "y": 15
+          }
+        ]
+      },
+      "display_id": "PIER-32",
+      "eligible": false,
+      "message_id": "M-GATE",
+      "reason": "ink_out_of_bounds"
+    },
+    {
+      "breaks": [
+        16
+      ],
+      "display_id": "GATE-64",
+      "eligible": true,
+      "ink_bbox": {
+        "max_exclusive": [
+          59,
+          17
+        ],
+        "min": [
+          2,
+          4
+        ]
+      },
+      "lines": [
+        {
+          "advance": 58,
+          "character_indices": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ]
+        },
+        {
+          "advance": 8,
+          "character_indices": [
+            17,
+            18
+          ]
+        }
+      ],
+      "message_id": "M-LONG",
+      "placements": [
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 0,
+          "ink_origin": [
+            2,
+            4
+          ],
+          "line": 0,
+          "pen_x": 2
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "X",
+          "character_index": 1,
+          "ink_origin": [
+            6,
+            4
+          ],
+          "line": 0,
+          "pen_x": 6
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": "I",
+          "character_index": 2,
+          "ink_origin": [
+            10,
+            4
+          ],
+          "line": 0,
+          "pen_x": 10
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 3,
+          "ink_origin": [
+            12,
+            4
+          ],
+          "line": 0,
+          "pen_x": 12
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": " ",
+          "character_index": 4,
+          "ink_origin": [
+            16,
+            4
+          ],
+          "line": 0,
+          "pen_x": 16
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "G",
+          "character_index": 5,
+          "ink_origin": [
+            18,
+            4
+          ],
+          "line": 0,
+          "pen_x": 18
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "A",
+          "character_index": 6,
+          "ink_origin": [
+            22,
+            4
+          ],
+          "line": 0,
+          "pen_x": 22
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 7,
+          "ink_origin": [
+            26,
+            4
+          ],
+          "line": 0,
+          "pen_x": 26
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 8,
+          "ink_origin": [
+            30,
+            4
+          ],
+          "line": 0,
+          "pen_x": 30
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": " ",
+          "character_index": 9,
+          "ink_origin": [
+            34,
+            4
+          ],
+          "line": 0,
+          "pen_x": 34
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 10,
+          "ink_origin": [
+            36,
+            4
+          ],
+          "line": 0,
+          "pen_x": 36
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "X",
+          "character_index": 11,
+          "ink_origin": [
+            40,
+            4
+          ],
+          "line": 0,
+          "pen_x": 40
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": "I",
+          "character_index": 12,
+          "ink_origin": [
+            44,
+            4
+          ],
+          "line": 0,
+          "pen_x": 44
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 13,
+          "ink_origin": [
+            46,
+            4
+          ],
+          "line": 0,
+          "pen_x": 46
+        },
+        {
+          "advance": 2,
+          "applied_kerning": 0,
+          "char": " ",
+          "character_index": 14,
+          "ink_origin": [
+            50,
+            4
+          ],
+          "line": 0,
+          "pen_x": 50
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "G",
+          "character_index": 15,
+          "ink_origin": [
+            52,
+            4
+          ],
+          "line": 0,
+          "pen_x": 52
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "A",
+          "character_index": 16,
+          "ink_origin": [
+            56,
+            4
+          ],
+          "line": 0,
+          "pen_x": 56
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "T",
+          "character_index": 17,
+          "ink_origin": [
+            2,
+            12
+          ],
+          "line": 1,
+          "pen_x": 2
+        },
+        {
+          "advance": 4,
+          "applied_kerning": 0,
+          "char": "E",
+          "character_index": 18,
+          "ink_origin": [
+            6,
+            12
+          ],
+          "line": 1,
+          "pen_x": 6
+        }
+      ],
+      "unique_ink_pixels": 134
+    },
+    {
+      "details": {
+        "max_lines": 2,
+        "min_lines_within_safe_width": 3,
+        "min_widest_line_advance": 4,
+        "safe_width": 30
+      },
+      "display_id": "PIER-32",
+      "eligible": false,
+      "message_id": "M-LONG",
+      "reason": "line_or_width_limit_exceeded"
+    },
+    {
+      "details": {
+        "max_lines": 3,
+        "min_lines_within_safe_width": null,
+        "min_widest_line_advance": 64,
+        "safe_width": 60
+      },
+      "display_id": "GATE-64",
+      "eligible": false,
+      "message_id": "M-WIDE",
+      "reason": "line_or_width_limit_exceeded"
+    },
+    {
+      "details": {
+        "max_lines": 2,
+        "min_lines_within_safe_width": null,
+        "min_widest_line_advance": 64,
+        "safe_width": 30
+      },
+      "display_id": "PIER-32",
+      "eligible": false,
+      "message_id": "M-WIDE",
+      "reason": "line_or_width_limit_exceeded"
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "combinations": 8,
+    "eligible": 4,
+    "ineligible": 4
+  }
+}

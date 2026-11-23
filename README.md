@@ -17,7 +17,7 @@ uv pip check --python .venv/bin/python
 .venv/bin/pixel-type --source fixtures/input.json --output run/report-initial.json
 ```
 
-实际全量测试通过（含 v1/v2/v3/v4/v5，共 133 项），v1 演示摘要：
+实际全量测试通过（含 v1/v2/v3/v4/v5/v6，共 165 项），v1 演示摘要：
 
 ```json
 {
@@ -62,6 +62,22 @@ uv pip check --python .venv/bin/python
 ```
 
 演示数据见 `fixtures/intake-demo/`（两包三版，可直接照上面命令跑通）。
+
+## 离线批量适配报告
+
+新增一个离线子命令，把一批已批准的站内标牌消息逐消息、逐屏型做排版适配并说明是否可发布；不接设备、不改屏幕、不写素材包或台账，规则见 [适配契约](docs/contract-v6.md)：
+
+```sh
+.venv/bin/pixel-type campaign-fit --source fixtures/campaign-demo/source.json --output run/campaign.json
+```
+
+`campaign-fit` 在共享的 v1 字形/字偶距/行距上，对每个 message × display 组合完整搜索全部合法断行（每行 advance 不越安全行宽、行数不越 `max_lines`、每一个实际墨点都落在 `safe_rect` 内，受保护跨度不可拆开），按"行数最少 → 各行剩余宽度平方和最小 → 断行边界字典序最小"选出唯一排版，报告逐行 advance、原始字符索引对应的 placement、实际墨点边界与唯一亮点数。不可行组合给出可定位原因（行数/行宽不可行，或 advance 可行的断行全部墨迹越界，并列出越界墨点的原始字符索引与屏幕坐标）。报告确定性、与输入记录顺序无关，原子新建不覆盖既有文件；坏输入整批失败退出 2，单个组合无解不影响其它组合。
+
+```sh
+.venv/bin/python -I -m unittest tests.test_campaign tests.test_campaign_demo -v
+```
+
+演示数据见 `fixtures/campaign-demo/`（两屏型、四消息，4 可行 / 4 不可行，两种原因齐全，可直接照上面命令跑通）。
 
 ## 离线抽检卡与回执判读
 

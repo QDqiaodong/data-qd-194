@@ -4,6 +4,7 @@ import json
 import os
 import sys
 
+from .campaign import build_report as build_campaign_report
 from .inspection import (build_card, parse_card,
                          build_report as build_inspect_report)
 from .io import load, parse_json as load_from_bytes, publish, publish_bytes
@@ -131,6 +132,16 @@ def _run_inspect_result(args):
     return 0
 
 
+def _run_campaign_fit(args):
+    try:
+        report = build_campaign_report(load(args.source))
+        publish_bytes(args.output, canonical_bytes(report))
+    except (ValueError, OSError, UnicodeError, RecursionError) as e:
+        return _fail(e)
+    print(json.dumps(report['summary'], ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def _run_intake(args):
     try:
         ledger = Ledger(args.ledger)
@@ -159,6 +170,11 @@ def main(argv=None):
         argv = sys.argv[1:]
     # Manual dispatch keeps the legacy v1 invocation
     # (pixel-type --source ... --output ...) working unchanged.
+    if argv and argv[0] == 'campaign-fit':
+        parser = argparse.ArgumentParser(prog='pixel-type campaign-fit')
+        parser.add_argument('--source', required=True)
+        parser.add_argument('--output', required=True)
+        return _run_campaign_fit(parser.parse_args(argv[1:]))
     if argv and argv[0] == 'inspect-plan':
         parser = argparse.ArgumentParser(prog='pixel-type inspect-plan')
         parser.add_argument('--source', required=True)

@@ -1,0 +1,35 @@
+{
+  "line_height": 8,
+  "glyphs": [
+    {"char": "A", "advance": 4, "offset": [0, 0], "rows": ["010", "101", "111", "101", "101"]},
+    {"char": "B", "advance": 4, "offset": [0, 0], "rows": ["110", "101", "110", "101", "110"]},
+    {"char": "E", "advance": 4, "offset": [0, 0], "rows": ["111", "100", "110", "100", "111"]},
+    {"char": "G", "advance": 4, "offset": [0, 0], "rows": ["011", "100", "101", "101", "011"]},
+    {"char": "I", "advance": 2, "offset": [0, 0], "rows": ["1", "1", "1", "1", "1"]},
+    {"char": "T", "advance": 4, "offset": [0, 0], "rows": ["111", "010", "010", "010", "010"]},
+    {"char": "X", "advance": 4, "offset": [0, 0], "rows": ["101", "101", "010", "101", "101"]},
+    {"char": "0", "advance": 4, "offset": [0, 0], "rows": ["111", "101", "101", "101", "111"]},
+    {"char": "1", "advance": 3, "offset": [0, 0], "rows": ["010", "110", "010", "010", "111"]},
+    {"char": "2", "advance": 4, "offset": [0, 0], "rows": ["110", "001", "010", "100", "111"]},
+    {"char": "7", "advance": 4, "offset": [0, 0], "rows": ["1111", "0001", "0010", "0010", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100"]},
+    {"char": " ", "advance": 2, "offset": [0, 0], "rows": []}
+  ],
+  "kerning": [
+    {"left": "T", "right": "A", "adjust": -1},
+    {"left": "1", "right": "2", "adjust": -1}
+  ],
+  "displays": [
+    {"id": "GATE-64", "width": 64, "height": 32,
+     "safe_rect": {"x": 2, "y": 4, "width": 60, "height": 24},
+     "max_lines": 3},
+    {"id": "PIER-32", "width": 32, "height": 16,
+     "safe_rect": {"x": 1, "y": 2, "width": 30, "height": 12},
+     "max_lines": 2}
+  ],
+  "messages": [
+    {"id": "M-EXIT", "text": "EXIT 12", "protected_spans": []},
+    {"id": "M-GATE", "text": "GATE B7", "protected_spans": [{"start": 5, "end": 7}]},
+    {"id": "M-LONG", "text": "EXIT GATE EXIT GATE", "protected_spans": []},
+    {"id": "M-WIDE", "text": "EXITEXITEXITEXITEX", "protected_spans": [{"start": 0, "end": 18}]}
+  ]
+}
